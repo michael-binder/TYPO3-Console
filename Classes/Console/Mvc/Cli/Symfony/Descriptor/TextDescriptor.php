@@ -44,7 +44,7 @@ class TextDescriptor extends \Symfony\Component\Console\Descriptor\TextDescripto
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(InputArgument $argument, array $options = [])
+    protected function describeInputArgument(InputArgument $argument, array $options = []): void
     {
         $totalWidth = isset($options['total_width']) ? $options['total_width'] : SymfonyCompatibilityBridge::helperLength($argument->getName());
         $spacingWidth = $totalWidth - strlen($argument->getName());
@@ -71,7 +71,7 @@ class TextDescriptor extends \Symfony\Component\Console\Descriptor\TextDescripto
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(InputOption $option, array $options = [])
+    protected function describeInputOption(InputOption $option, array $options = []): void
     {
         $totalWidth = $options['total_width'] ?? $this->calculateTotalWidthForOptions([$option]);
         // + 4 = 2 spaces before <info>, 2 spaces after </info>
@@ -114,7 +114,7 @@ class TextDescriptor extends \Symfony\Component\Console\Descriptor\TextDescripto
      * {@inheritdoc}
      * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
      */
-    protected function describeCommand(Command $command, array $options = [])
+    protected function describeCommand(Command $command, array $options = []): void
     {
         $command->getSynopsis(true);
         $command->getSynopsis(false);
@@ -147,7 +147,7 @@ class TextDescriptor extends \Symfony\Component\Console\Descriptor\TextDescripto
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(Application $application, array $options = [])
+    protected function describeApplication(Application $application, array $options = []): void
     {
         $describedNamespace = isset($options['namespace']) ? $options['namespace'] : null;
         $description = new ApplicationDescription($application, $describedNamespace);
@@ -256,7 +256,7 @@ class TextDescriptor extends \Symfony\Component\Console\Descriptor\TextDescripto
      *
      * @return string
      */
-    private function formatDefaultValue($default)
+    private function formatDefaultValue(mixed $default): string
     {
         if (is_string($default)) {
             $default = OutputFormatter::escape($default);
@@ -274,7 +274,7 @@ class TextDescriptor extends \Symfony\Component\Console\Descriptor\TextDescripto
     /**
      * {@inheritdoc}
      */
-    private function writeText($content, array $options = [])
+    private function writeText(string $content, array $options = []): void
     {
         $this->write(
             isset($options['raw_text']) && $options['raw_text'] ? strip_tags($content) : $content,
